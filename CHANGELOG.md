@@ -11,7 +11,7 @@ All notable changes to `homebridge` will be documented in this file. This projec
 
 ### Homebridge Dependencies
 
-- `hap-nodejs` @ `v0.12.3-beta.2`
+- `hap-nodejs` @ `v0.12.3-beta.13`
 
 ## v1.8.3 (2024-06-19)
 
