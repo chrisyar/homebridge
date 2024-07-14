@@ -2,6 +2,21 @@
 
 All notable changes to `homebridge` will be documented in this file. This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
+## BETA
+
+### Fixed
+
+- Fix default FirmwareRevision (#3644) (@hjdhjd)
+
+### Changed
+
+- Detect config interface on registerPlatform (#3609) (@duddu)
+- Updated dependencies, fix `typedoc` generation
+
+### Homebridge Dependencies
+
+- `hap-nodejs` @ `v1.0.0`
+
 ## v1.8.3 (2024-06-19)
 
 ### Changed

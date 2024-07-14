@@ -7,7 +7,8 @@
 # Homebridge
 
 <a href="https://www.npmjs.com/package/homebridge"><img title="npm version" src="https://badgen.net/npm/v/homebridge?label=stable"></a>
-<a href="https://github.com/homebridge/homebridge/wiki/Homebridge-Beta-Testing"><img title="npm version" src="https://badgen.net/npm/v/homebridge/beta?label=beta"></a>
+<a href="https://github.com/homebridge/homebridge/wiki/How-To-Change-Homebridge-Version#manage-beta-version"><img title="npm version" src="https://badgen.net/npm/v/homebridge/beta?label=beta"></a>
+<a href="https://github.com/homebridge/homebridge/wiki/How-To-Change-Homebridge-Version#manage-beta-version"><img title="npm version" src="https://badgen.net/npm/v/homebridge/alpha?label=alpha"></a><br>
 <a href="https://www.npmjs.com/package/homebridge"><img title="npm downloads" src="https://badgen.net/npm/dt/homebridge"></a>
 <a href="https://github.com/homebridge/homebridge/actions/workflows/build.yml"><img title="Node Build" src="https://github.com/homebridge/homebridge/actions/workflows/build.yml/badge.svg"></a>
 
@@ -33,7 +34,7 @@ The official Homebridge Discord server and Reddit community are where users can 
 
 <span align="center">
 
-[![Homebridge Discord](https://discordapp.com/api/guilds/432663330281226270/widget.png?style=banner2)](https://discord.gg/kqNCe2D) [![Homebridge Reddit](.github/homebridge-reddit.svg?sanitize=true)](https://www.reddit.com/r/homebridge/)
+[![Homebridge Discord](https://discordapp.com/api/guilds/432663330281226270/widget.png?style=banner2)](https://discord.gg/kqNCe2D) [![Homebridge Reddit](https://raw.githubusercontent.com/homebridge/homebridge/latest/.github/homebridge-reddit.svg?sanitize=true)](https://www.reddit.com/r/homebridge/)
 
 </span>
 
@@ -154,7 +155,7 @@ Try the following:
 
 ### Limitations
 
- * One bridge can only expose 150 accessories due to a HomeKit limit. You can however run your plugins as a [Child Bridge](https://github.com/homebridge/homebridge/wiki/Child-Bridges) or run [Multiple Homebridge Instances](https://github.com/oznu/homebridge-config-ui-x/wiki/Homebridge-Service-Command#multiple-instances) to get around this limitation.
+ * One bridge can only expose 150 accessories due to a HomeKit limit. You can however run your plugins as a [Child Bridge](https://github.com/homebridge/homebridge/wiki/Child-Bridges) or run [Multiple Homebridge Instances](https://github.com/homebridge/homebridge-config-ui-x/wiki/Homebridge-Service-Command#multiple-instances) to get around this limitation.
  * Once an accessory has been added to the Home app, changing its name via Homebridge won't be automatically reflected in iOS. You must change it via the Home app as well.
 
 ## Why Homebridge?
