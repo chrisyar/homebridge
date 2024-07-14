@@ -2,7 +2,7 @@
 
 All notable changes to `homebridge` will be documented in this file. This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## BETA
+## ALPHA
 
 ### Breaking Changes
 
@@ -22,6 +22,17 @@ All notable changes to `homebridge` will be documented in this file. This projec
       - Instead of `const Formats = Characteristic.Formats;` you will need to use `const Formats = api.hap.Formats;`
       - Instead of `const Perms = Characteristic.Perms;` you will need to use `const Perms = api.hap.Perms;`
 
+### Changed
+
+- Complete deprecation of multiple configurations for a dynamic platform plugin in config.json. (#3649) (@hjdhjd)
+- Address legacy deprecation cleanup (#3648) (@hjdhjd)
+
+### Homebridge Dependencies
+
+- `hap-nodejs` @ `v1.0.0`
+
+## BETA
+
 ### Fixed
 
 - Fix default FirmwareRevision (#3644) (@hjdhjd)
@@ -29,16 +40,7 @@ All notable changes to `homebridge` will be documented in this file. This projec
 ### Changed
 
 - Detect config interface on registerPlatform (#3609) (@duddu)
-- Complete deprecation of multiple configurations for a dynamic platform plugin in config.json. (#3649) (@hjdhjd)
-- Address legacy deprecation cleanup (#3648) (@hjdhjd)
 - Updated dependencies, fix `typedoc` generation
-- Updated build workflow: added `lint-docs`
-- regenerate docs, bump `hap-nodejs` beta
-- add alpha version badge to README
-
-### Homebridge Dependencies
-
-- `hap-nodejs` @ `v1.0.0`
 
 ## v1.8.3 (2024-06-19)
 
