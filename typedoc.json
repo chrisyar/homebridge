@@ -1,6 +1,5 @@
 {
   "out": "docs",
-  "includes": "src",
   "exclude": ["src/**/*.spec.ts"],
   "entryPoints": [
     "src/index.ts"
@@ -13,5 +12,6 @@
   "validation": {
     "invalidLink": true,
     "notExported": false
-  }
+  },
+  "inlineTags": ["@link", "@see"]
 }
