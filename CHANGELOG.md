@@ -4,13 +4,16 @@ All notable changes to `homebridge` will be documented in this file. This projec
 
 ## ALPHA
 
-### Breaking Changes
+### ⚠️ Breaking Changes
 
-- **Before Upgrading you will want to make sure that the plugin(s) you are using are up-to-date and are not using deprecated code**
-  - If you are unsure open an issue with the developer of your plugin(s) in question.
-- We have removed deprecated old Homebridge code
-- HAP-NodeJS v1.0.0 is included in this release. In v1.0.0 we have removed old deprecated code.
-  - Some examples can be found on the HAP-NodeJS [v1.0.0 Release Notes](https://github.com/homebridge/HAP-NodeJS/releases/tag/v1.0.0).
+- **For Users:**
+  - Before upgrading, you will want to ensure that the plugin(s) you are using are compatible with this new version of Homebridge. If you are unsure, see the link below or open an issue with the developer of your plugin(s) in question.
+
+- **For Plugin Developers:**
+  - The new version of Homebridge includes a major version update to HAP-Nodejs. Some old deprecated functions have been removed. See the link below for a list of changes that you may need to make to your plugin(s).
+
+- Please visit the following link to learn more about the changes and how to prepare:
+  - https://github.com/homebridge/homebridge/wiki/Updating-To-Homebridge-v2.0
 
 ### Changes For Developers
 
@@ -26,6 +29,7 @@ All notable changes to `homebridge` will be documented in this file. This projec
 
 - Complete deprecation of multiple configurations for a dynamic platform plugin in config.json. (#3649) (@hjdhjd)
 - Address legacy deprecation cleanup (#3648) (@hjdhjd)
+- Update `hap-nodejs` to v1.0.0
 
 ### Homebridge Dependencies
 
