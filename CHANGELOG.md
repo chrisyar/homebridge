@@ -13,7 +13,7 @@ All notable changes to `homebridge` will be documented in this file. This projec
   - The new version of Homebridge includes a major version update to HAP-Nodejs. Some old deprecated functions have been removed. See the link below for a list of changes that you may need to make to your plugin(s).
 
 - Please visit the following link to learn more about the changes and how to prepare:
-  - https://github.com/homebridge/homebridge/wiki/Updating-To-Homebridge-v2.0
+  - [Updating-To-Homebridge-v2.0](https://github.com/homebridge/homebridge/wiki/Updating-To-Homebridge-v2.0)
 
 ### Changes For Developers
 
@@ -35,7 +35,7 @@ All notable changes to `homebridge` will be documented in this file. This projec
 
 - `hap-nodejs` @ `v1.0.0`
 
-## BETA
+## v1.8.4 (2024-07-19)
 
 ### Fixed
 
@@ -45,6 +45,11 @@ All notable changes to `homebridge` will be documented in this file. This projec
 
 - Detect config interface on registerPlatform (#3609) (@duddu)
 - Updated dependencies, fix `typedoc` generation
+- Added log messaging about upcoming Homebridge v2.0.0 update
+  - NOTICE TO USERS AND PLUGIN DEVELOPERS
+    - Homebridge 2.0 is on the way and brings some breaking changes to existing plugins.
+    - Please visit the following link to learn more about the changes and how to prepare:
+      - [Updating-To-Homebridge-v2.0](https://github.com/homebridge/homebridge/wiki/Updating-To-Homebridge-v2.0)
 
 ## v1.8.3 (2024-06-19)
 
