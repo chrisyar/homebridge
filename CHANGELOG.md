@@ -21,6 +21,7 @@ All notable changes to `homebridge` will be documented in this file. This projec
 - Address legacy deprecation cleanup (#3648) (@hjdhjd)
 - Update `hap-nodejs` to v1.0.0
 - remove deprecated `--remove-orphans` flag
+- Update `typedoc` and refresh documentation
 
 ### Homebridge Dependencies
 
