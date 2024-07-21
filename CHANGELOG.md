@@ -2,7 +2,7 @@
 
 All notable changes to `homebridge` will be documented in this file. This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## ALPHA
+## BETA
 
 ### ⚠️ Breaking Changes
 
@@ -15,21 +15,12 @@ All notable changes to `homebridge` will be documented in this file. This projec
 - Please visit the following link to learn more about the changes and how to prepare:
   - [Updating-To-Homebridge-v2.0](https://github.com/homebridge/homebridge/wiki/Updating-To-Homebridge-v2.0)
 
-### Changes For Developers
-
-- Because of the **Breaking Changes** in HAP-NodeJS v1.0.0, there may be some changes that you will have to make to your plugins.
-  - Common long-deprecated code patterns that may need updating:
-    - Use of enums off the HAP API object are no longer supported
-    - Examples:
-      - Instead of `const Units = Characteristic.Units;` you will need to use `const Units = api.hap.Units;`
-      - Instead of `const Formats = Characteristic.Formats;` you will need to use `const Formats = api.hap.Formats;`
-      - Instead of `const Perms = Characteristic.Perms;` you will need to use `const Perms = api.hap.Perms;`
-
 ### Changed
 
 - Complete deprecation of multiple configurations for a dynamic platform plugin in config.json. (#3649) (@hjdhjd)
 - Address legacy deprecation cleanup (#3648) (@hjdhjd)
 - Update `hap-nodejs` to v1.0.0
+- remove deprecated `--remove-orphans` flag
 
 ### Homebridge Dependencies
 

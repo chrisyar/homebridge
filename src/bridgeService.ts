@@ -195,7 +195,6 @@ export class BridgeService {
       );
     });
 
-    // noinspection JSDeprecatedSymbols
     const publishInfo: PublishInfo = {
       username: bridgeConfig.username,
       port: bridgeConfig.port,
@@ -425,7 +424,6 @@ export class BridgeService {
         log.info("Please add [%s] manually in Home app. Setup Code: %s", hapAccessory.displayName, accessoryPin);
       });
 
-      // noinspection JSDeprecatedSymbols
       const publishInfo: PublishInfo = {
         username: advertiseAddress,
         pincode: accessoryPin,
