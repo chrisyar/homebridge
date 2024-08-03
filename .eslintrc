@@ -30,6 +30,7 @@
     "import/order": ["warn", { "alphabetize": { "order": "asc" }, "newlines-between": "never" }],
     "import/prefer-default-export": "off",
     "import-newlines/enforce": ["error", 3],
+    "@typescript-eslint/no-unused-vars": ["error", { "caughtErrors": "none" }],
 
     "@typescript-eslint/no-unsafe-declaration-merging": "off",
 

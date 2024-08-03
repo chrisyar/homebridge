@@ -22,10 +22,11 @@ All notable changes to `homebridge` will be documented in this file. This projec
 - Update `hap-nodejs` to v1.0.0
 - remove deprecated `--remove-orphans` flag
 - Update `typedoc` and refresh documentation
+- Update dependencies + lint
 
 ### Homebridge Dependencies
 
-- `hap-nodejs` @ `v1.1.0`
+- `hap-nodejs` @ `v1.1.1-beta.0`
 
 ## v1.8.4 (2024-07-19)
 
