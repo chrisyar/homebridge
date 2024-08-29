@@ -2,7 +2,7 @@
 
 All notable changes to `homebridge` will be documented in this file. This project tries to adhere to [Semantic Versioning](http://semver.org/).
 
-## v1.8.4 (2024-07-19)
+## BETA
 
 ### ⚠️ Breaking Changes
 
@@ -23,10 +23,14 @@ All notable changes to `homebridge` will be documented in this file. This projec
 - remove deprecated `--remove-orphans` flag
 - Update `typedoc` and refresh documentation
 - Update dependencies + lint
+- general code modernisation:
+  - move from `commonjs` to `esm` modules
+  - use lint rules from `@antfu/eslint-config`
+  - migrate from `jest` to `vitest` for testing
 
 ### Homebridge Dependencies
 
-- `hap-nodejs` @ `v1.1.1-beta.0`
+- `hap-nodejs` @ `v1.1.1-beta.2`
 
 ## v1.8.4 (2024-07-19)
 
