@@ -1,18 +1,18 @@
-import type { Controller, Service } from 'hap-nodejs'
-
-import type { AccessoryConfig, PlatformConfig } from './bridgeService.js'
-import type { Logging } from './logger.js'
-
 import { EventEmitter } from 'node:events'
 
 import hapNodeJs from 'hap-nodejs'
 import semver from 'semver'
 
+import type { Controller, Service } from 'hap-nodejs'
+
 import { Logger } from './logger.js'
 import { PlatformAccessory } from './platformAccessory.js'
+
 import { PluginManager } from './pluginManager.js'
 import { User } from './user.js'
 import getVersion from './version.js'
+import type { AccessoryConfig, PlatformConfig } from './bridgeService.js'
+import type { Logging } from './logger.js'
 
 const log = Logger.internal
 
@@ -39,7 +39,6 @@ export const enum PluginType {
  * It is called once the plugin is loaded from disk.
  */
 export interface PluginInitializer {
-
   /**
    * When the initializer is called the plugin must use the provided api instance and call the appropriate
    * register methods - {@link API.registerAccessory} or {@link API.registerPlatform} - in order to
@@ -48,7 +47,6 @@ export interface PluginInitializer {
    * @param {API} api
    */
   (api: API): void | Promise<void>
-
 }
 
 export interface AccessoryPluginConstructor {
@@ -56,7 +54,6 @@ export interface AccessoryPluginConstructor {
 }
 
 export interface AccessoryPlugin {
-
   /**
    * Optional method which will be called if an 'identify' of an Accessory is requested by HomeKit.
    */
@@ -84,7 +81,6 @@ export interface AccessoryPlugin {
    * @returns {Controller[]} controllers - returned controllers will be configured for the Accessory
    */
   getControllers?: () => Controller[]
-
 }
 
 export interface PlatformPluginConstructor<Config extends PlatformConfig = PlatformConfig> {
@@ -99,7 +95,6 @@ export interface PlatformPlugin {} // not exported to the public in index.ts
  * Accessories can be added or removed by using {@link API.registerPlatformAccessories} or {@link API.unregisterPlatformAccessories}.
  */
 export interface DynamicPlatformPlugin extends PlatformPlugin {
-
   /**
    * This method is called for every PlatformAccessory, which is recreated from disk on startup.
    * It should be used to properly initialize the Accessory and setup all event handlers for
@@ -108,7 +103,6 @@ export interface DynamicPlatformPlugin extends PlatformPlugin {
    * @param {PlatformAccessory} accessory which needs to be configured
    */
   configureAccessory: (accessory: PlatformAccessory) => void
-
 }
 
 /**
@@ -117,7 +111,6 @@ export interface DynamicPlatformPlugin extends PlatformPlugin {
  * The bridge waits for all callbacks to return before it is published and accessible by HomeKit controllers.
  */
 export interface StaticPlatformPlugin extends PlatformPlugin {
-
   /**
    * This method is called once at startup. The Platform should pass all accessories which need to be created
    * to the callback in form of a {@link AccessoryPlugin}.
@@ -126,7 +119,6 @@ export interface StaticPlatformPlugin extends PlatformPlugin {
    * @param {(foundAccessories: AccessoryPlugin[]) => void} callback
    */
   accessories: (callback: (foundAccessories: AccessoryPlugin[]) => void) => void
-
 }
 
 /**
@@ -147,6 +139,7 @@ export const enum APIEvent {
    * to wait for some {@see StaticPlatformPlugin | StaticPlatformPlugins} to finish accessory creation.
    */
   DID_FINISH_LAUNCHING = 'didFinishLaunching',
+
   /**
    * This event is fired when homebridge gets shutdown. This could be a regular shutdown or an unexpected crash.
    * At this stage all Accessories are already unpublished and all PlatformAccessories are already saved to disk!
@@ -166,11 +159,11 @@ export const enum InternalAPIEvent {
 }
 
 export interface API {
-
   /**
    * The homebridge API version as a floating point number.
    */
   readonly version: number
+
   /**
    * The current homebridge semver version.
    */
@@ -210,16 +203,13 @@ export interface API {
   publishExternalAccessories: (pluginIdentifier: PluginIdentifier, accessories: PlatformAccessory[]) => void
 
   on: ((event: 'didFinishLaunching', listener: () => void) => this) & ((event: 'shutdown', listener: () => void) => this)
-
 }
 
 // eslint-disable-next-line ts/no-unsafe-declaration-merging
 export declare interface HomebridgeAPI {
-
   on: ((event: 'didFinishLaunching', listener: () => void) => this) & ((event: 'shutdown', listener: () => void) => this) & ((event: InternalAPIEvent.REGISTER_ACCESSORY, listener: (accessoryName: AccessoryName, accessoryConstructor: AccessoryPluginConstructor, pluginIdentifier?: PluginIdentifier) => void) => this) & ((event: InternalAPIEvent.REGISTER_PLATFORM, listener: (platformName: PlatformName, platformConstructor: PlatformPluginConstructor, pluginIdentifier?: PluginIdentifier) => void) => this) & ((event: InternalAPIEvent.PUBLISH_EXTERNAL_ACCESSORIES, listener: (accessories: PlatformAccessory[]) => void) => this) & ((event: InternalAPIEvent.REGISTER_PLATFORM_ACCESSORIES, listener: (accessories: PlatformAccessory[]) => void) => this) & ((event: InternalAPIEvent.UPDATE_PLATFORM_ACCESSORIES, listener: (accessories: PlatformAccessory[]) => void) => this) & ((event: InternalAPIEvent.UNREGISTER_PLATFORM_ACCESSORIES, listener: (accessories: PlatformAccessory[]) => void) => this)
 
   emit: ((event: 'didFinishLaunching') => boolean) & ((event: 'shutdown') => boolean) & ((event: InternalAPIEvent.REGISTER_ACCESSORY, accessoryName: AccessoryName, accessoryConstructor: AccessoryPluginConstructor, pluginIdentifier?: PluginIdentifier) => boolean) & ((event: InternalAPIEvent.REGISTER_PLATFORM, platformName: PlatformName, platformConstructor: PlatformPluginConstructor, pluginIdentifier?: PluginIdentifier) => boolean) & ((event: InternalAPIEvent.PUBLISH_EXTERNAL_ACCESSORIES, accessories: PlatformAccessory[]) => boolean) & ((event: InternalAPIEvent.REGISTER_PLATFORM_ACCESSORIES, accessories: PlatformAccessory[]) => boolean) & ((event: InternalAPIEvent.UPDATE_PLATFORM_ACCESSORIES, accessories: PlatformAccessory[]) => boolean) & ((event: InternalAPIEvent.UNREGISTER_PLATFORM_ACCESSORIES, accessories: PlatformAccessory[]) => boolean)
-
 }
 
 // eslint-disable-next-line ts/no-unsafe-declaration-merging
@@ -260,7 +250,6 @@ export class HomebridgeAPI extends EventEmitter implements API {
 
   registerAccessory(accessoryName: AccessoryName, constructor: AccessoryPluginConstructor): void
   registerAccessory(pluginIdentifier: PluginIdentifier, accessoryName: AccessoryName, constructor: AccessoryPluginConstructor): void
-
   registerAccessory(pluginIdentifier: PluginIdentifier | AccessoryName, accessoryName: AccessoryName | AccessoryPluginConstructor, constructor?: AccessoryPluginConstructor): void {
     if (typeof accessoryName === 'function') {
       constructor = accessoryName
@@ -273,7 +262,6 @@ export class HomebridgeAPI extends EventEmitter implements API {
 
   registerPlatform(platformName: PlatformName, constructor: PlatformPluginConstructor): void
   registerPlatform(pluginIdentifier: PluginIdentifier, platformName: PlatformName, constructor: PlatformPluginConstructor): void
-
   registerPlatform(pluginIdentifier: PluginIdentifier | PlatformName, platformName: PlatformName | PlatformPluginConstructor, constructor?: PlatformPluginConstructor): void {
     if (typeof platformName === 'function') {
       constructor = platformName

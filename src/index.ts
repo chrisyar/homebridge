@@ -15,10 +15,8 @@ export type {
   AccessoryPlugin,
   AccessoryPluginConstructor,
   API,
-
   DynamicPlatformPlugin,
   IndependentPlatformPlugin,
-
   PlatformIdentifier,
   PlatformName,
   PlatformPluginConstructor,
@@ -26,7 +24,6 @@ export type {
   PluginInitializer,
   PluginName,
   ScopedPluginName,
-
   StaticPlatformPlugin,
 } from './api.js'
 
@@ -48,9 +45,7 @@ export type {
 /**
  * Export port types
  */
-export type {
-  ExternalPortsConfiguration,
-} from './externalPortService.js'
+export type { ExternalPortsConfiguration } from './externalPortService.js'
 
 /**
  * Export Logger const enums
@@ -292,10 +287,7 @@ export type {
 /**
  * Export HAP-NodeJS variables as type only
  */
-export type {
-  LegacyTypes,
-  uuid,
-} from 'hap-nodejs'
+export type { LegacyTypes, uuid } from 'hap-nodejs'
 
 /**
  * Export HAP-NodeJS functions as type only

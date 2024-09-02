@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -7,7 +7,7 @@ const __dirname = dirname(__filename)
 
 function loadPackageJson(): any {
   const packageJSONPath = join(__dirname, '../package.json')
-  return JSON.parse(fs.readFileSync(packageJSONPath, { encoding: 'utf8' }))
+  return JSON.parse(readFileSync(packageJSONPath, { encoding: 'utf8' }))
 }
 
 export default function getVersion(): string {

@@ -1,3 +1,6 @@
+import { EventEmitter } from 'node:events'
+import { Accessory, AccessoryEventTypes, Categories } from 'hap-nodejs'
+
 import type {
   Controller,
   ControllerConstructor,
@@ -6,26 +9,17 @@ import type {
   VoidCallback,
   WithUUID,
 } from 'hap-nodejs'
+
 import type { ConstructorArgs } from 'hap-nodejs/dist/types.js'
 
 import type { PlatformName, PluginIdentifier, PluginName } from './api.js'
 
-import { EventEmitter } from 'node:events'
-
-import {
-  Accessory,
-  AccessoryEventTypes,
-  Categories,
-} from 'hap-nodejs'
-
 export type UnknownContext = Record<string, any>
 
 export interface SerializedPlatformAccessory<T extends UnknownContext = UnknownContext> extends SerializedAccessory {
-
   plugin: PluginName
   platform: PlatformName
   context: T
-
 }
 
 // eslint-disable-next-line no-restricted-syntax
@@ -35,11 +29,8 @@ export const enum PlatformAccessoryEvent {
 
 // eslint-disable-next-line ts/no-unsafe-declaration-merging
 export declare interface PlatformAccessory {
-
   on: (event: 'identify', listener: () => void) => this
-
   emit: (event: 'identify') => boolean
-
 }
 
 // eslint-disable-next-line ts/no-unsafe-declaration-merging
@@ -49,7 +40,6 @@ export class PlatformAccessory<T extends UnknownContext = UnknownContext> extend
 
   _associatedPlugin?: PluginIdentifier // present as soon as it is registered
   _associatedPlatform?: PlatformName // not present for external accessories
-
   _associatedHAPAccessory: Accessory
 
   // ---------------- HAP Accessory mirror ----------------

@@ -1,5 +1,17 @@
-import type { MacAddress } from 'hap-nodejs'
+import { fork } from 'node:child_process'
 
+import { dirname, resolve } from 'node:path'
+
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+import fs from 'fs-extra'
+import type { MacAddress } from 'hap-nodejs'
+import type { ChildProcess, ForkOptions } from 'node:child_process'
+import { PluginType } from './api.js'
+import { IpcOutgoingEvent } from './ipcService.js'
+
+import { Logger } from './logger.js'
+import { User } from './user.js'
 import type { HomebridgeAPI } from './api.js'
 import type {
   AccessoryConfig,
@@ -8,23 +20,13 @@ import type {
   HomebridgeConfig,
   PlatformConfig,
 } from './bridgeService.js'
+
 import type { ExternalPortService } from './externalPortService.js'
+
 import type { IpcService } from './ipcService.js'
 import type { Logging } from './logger.js'
 import type { Plugin } from './plugin.js'
 import type { HomebridgeOptions } from './server.js'
-
-import child_process from 'node:child_process'
-import path, { dirname } from 'node:path'
-import process from 'node:process'
-import { fileURLToPath } from 'node:url'
-
-import fs from 'fs-extra'
-
-import { PluginType } from './api.js'
-import { IpcOutgoingEvent } from './ipcService.js'
-import { Logger } from './logger.js'
-import { User } from './user.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -141,9 +143,9 @@ export interface ChildMetadata {
  * A child bridge runs a single platform or accessory.
  */
 export class ChildBridgeService {
-  private child?: child_process.ChildProcess
+  private child?: ChildProcess
   private args: string[] = []
-  private processEnv: child_process.ForkOptions = {}
+  private processEnv: ForkOptions = {}
   private shuttingDown = false
   private lastBridgeStatus: ChildBridgeStatus = ChildBridgeStatus.PENDING
   private pairedStatus: boolean | null = null
@@ -219,7 +221,7 @@ export class ChildBridgeService {
   private startChildProcess(): void {
     this.bridgeStatus = ChildBridgeStatus.PENDING
 
-    this.child = child_process.fork(path.resolve(__dirname, 'childBridgeFork.js'), this.args, this.processEnv)
+    this.child = fork(resolve(__dirname, 'childBridgeFork.js'), this.args, this.processEnv)
 
     this.child.stdout?.on('data', (data) => {
       process.stdout.write(data)

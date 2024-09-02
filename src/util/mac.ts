@@ -1,8 +1,7 @@
 /* global NodeJS */
+import { createHash } from 'node:crypto'
 
 import type { Buffer } from 'node:buffer'
-
-import crypto from 'node:crypto'
 
 const validMac = /^(?:[0-9A-F]{2}:){5}[0-9A-F]{2}$/
 
@@ -13,7 +12,7 @@ export function validMacAddress(address: string): boolean {
 }
 
 export function generate(data: string | Buffer | NodeJS.TypedArray | DataView): MacAddress {
-  const sha1sum = crypto.createHash('sha1')
+  const sha1sum = createHash('sha1')
   sha1sum.update(data)
   const s = sha1sum.digest('hex')
 

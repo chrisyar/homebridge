@@ -28,33 +28,25 @@ export const enum LogLevel {
  * but also has dedicated logging functions for respective logging levels.
  */
 export interface Logging {
-
   prefix: string
-
   (message: string, ...parameters: any[]): void
-
   info: (message: string, ...parameters: any[]) => void
   success: (message: string, ...parameters: any[]) => void
   warn: (message: string, ...parameters: any[]) => void
   error: (message: string, ...parameters: any[]) => void
   debug: (message: string, ...parameters: any[]) => void
   log: (level: LogLevel, message: string, ...parameters: any[]) => void
-
 }
 
 interface IntermediateLogging { // some auxiliary interface used to correctly type stuff happening in "withPrefix"
-
   prefix?: string
-
   (message: string, ...parameters: any[]): void
-
   info?: (message: string, ...parameters: any[]) => void
   success?: (message: string, ...parameters: any[]) => void
   warn?: (message: string, ...parameters: any[]) => void
   error?: (message: string, ...parameters: any[]) => void
   debug?: (message: string, ...parameters: any[]) => void
   log?: (level: LogLevel, message: string, ...parameters: any[]) => void
-
 }
 
 /**
@@ -62,7 +54,6 @@ interface IntermediateLogging { // some auxiliary interface used to correctly ty
  */
 export class Logger {
   public static readonly internal = new Logger()
-
   private static readonly loggerCache = new Map<string, Logging>() // global cache of logger instances by plugin name
   private static debugEnabled = false
   private static timestampEnabled = true

@@ -1,3 +1,17 @@
+import {
+  Accessory,
+  AccessoryEventTypes,
+  Bridge,
+  Categories,
+  Characteristic,
+  CharacteristicEventTypes,
+  CharacteristicWarningType,
+  HAPLibraryVersion,
+  once,
+  Service,
+  uuid,
+} from 'hap-nodejs'
+
 import type {
   CharacteristicWarning,
   InterfaceName,
@@ -7,7 +21,15 @@ import type {
   PublishInfo,
   VoidCallback,
 } from 'hap-nodejs'
+import { InternalAPIEvent } from './api.js'
+import { getLogPrefix, Logger } from './logger.js'
+import { PlatformAccessory } from './platformAccessory.js'
+import { PluginManager } from './pluginManager.js'
+import { StorageService } from './storageService.js'
 
+import { generate } from './util/mac.js'
+
+import getVersion from './version.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -23,28 +45,6 @@ import type { Logging } from './logger.js'
 import type { SerializedPlatformAccessory } from './platformAccessory.js'
 import type { Plugin } from './plugin.js'
 import type { HomebridgeOptions } from './server.js'
-
-import {
-  Accessory,
-  AccessoryEventTypes,
-  Bridge,
-  Categories,
-  Characteristic,
-  CharacteristicEventTypes,
-  CharacteristicWarningType,
-  HAPLibraryVersion,
-  once,
-  Service,
-  uuid,
-} from 'hap-nodejs'
-
-import { InternalAPIEvent } from './api.js'
-import { getLogPrefix, Logger } from './logger.js'
-import { PlatformAccessory } from './platformAccessory.js'
-import { PluginManager } from './pluginManager.js'
-import { StorageService } from './storageService.js'
-import { generate } from './util/mac.js'
-import getVersion from './version.js'
 
 const log = Logger.internal
 
@@ -110,9 +110,7 @@ export interface CharacteristicWarningOpts {
 export class BridgeService {
   public bridge: Bridge
   private storageService: StorageService
-
   private readonly allowInsecureAccess: boolean
-
   private cachedPlatformAccessories: PlatformAccessory[] = []
   private cachedAccessoriesFileLoaded = false
   private readonly publishedExternalAccessories: Map<MacAddress, PlatformAccessory> = new Map()

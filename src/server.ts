@@ -1,5 +1,22 @@
-import type { MacAddress } from 'hap-nodejs'
+import { existsSync, readFileSync } from 'node:fs'
 
+import process from 'node:process'
+import chalk from 'chalk'
+import { AccessoryEventTypes, MDNSAdvertiser } from 'hap-nodejs'
+import qrcode from 'qrcode-terminal'
+
+import type { MacAddress } from 'hap-nodejs'
+import { HomebridgeAPI, PluginType } from './api.js'
+
+import { BridgeService } from './bridgeService.js'
+import { ChildBridgeService } from './childBridgeService.js'
+import { ExternalPortService } from './externalPortService.js'
+
+import { IpcIncomingEvent, IpcOutgoingEvent, IpcService } from './ipcService.js'
+import { Logger } from './logger.js'
+import { PluginManager } from './pluginManager.js'
+import { User } from './user.js'
+import { validMacAddress } from './util/mac.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -13,23 +30,6 @@ import type {
 import type { BridgeConfiguration, BridgeOptions, HomebridgeConfig } from './bridgeService.js'
 import type { Plugin } from './plugin.js'
 import type { PluginManagerOptions } from './pluginManager.js'
-
-import fs from 'node:fs'
-import process from 'node:process'
-
-import chalk from 'chalk'
-import { AccessoryEventTypes, MDNSAdvertiser } from 'hap-nodejs'
-import qrcode from 'qrcode-terminal'
-
-import { HomebridgeAPI, PluginType } from './api.js'
-import { BridgeService } from './bridgeService.js'
-import { ChildBridgeService } from './childBridgeService.js'
-import { ExternalPortService } from './externalPortService.js'
-import { IpcIncomingEvent, IpcOutgoingEvent, IpcService } from './ipcService.js'
-import { Logger } from './logger.js'
-import { PluginManager } from './pluginManager.js'
-import { User } from './user.js'
-import { validMacAddress } from './util/mac.js'
 
 const log = Logger.internal
 
@@ -205,7 +205,7 @@ export class Server {
       pin: '031-45-154',
     }
 
-    if (!fs.existsSync(configPath)) {
+    if (!existsSync(configPath)) {
       log.warn('config.json (%s) not found.', configPath)
       return { // return a default configuration
         bridge: defaultBridge,
@@ -216,7 +216,7 @@ export class Server {
 
     let config: Partial<HomebridgeConfig>
     try {
-      config = JSON.parse(fs.readFileSync(configPath, { encoding: 'utf8' }))
+      config = JSON.parse(readFileSync(configPath, { encoding: 'utf8' }))
     } catch (error: any) {
       log.error('There was a problem reading your config.json file.')
       log.error('Please try pasting your config.json file here to validate it: https://jsonlint.com')
@@ -516,6 +516,7 @@ export class Server {
 
     // handle restart child bridge event
     this.ipcService.on(IpcIncomingEvent.RESTART_CHILD_BRIDGE, (username) => {
+      // noinspection SuspiciousTypeOfGuard
       if (typeof username === 'string') {
         const childBridge = this.childBridges.get(username.toUpperCase())
         childBridge?.restartChildBridge()
@@ -524,6 +525,7 @@ export class Server {
 
     // handle stop child bridge event
     this.ipcService.on(IpcIncomingEvent.STOP_CHILD_BRIDGE, (username) => {
+      // noinspection SuspiciousTypeOfGuard
       if (typeof username === 'string') {
         const childBridge = this.childBridges.get(username.toUpperCase())
         childBridge?.stopChildBridge()
@@ -532,6 +534,7 @@ export class Server {
 
     // handle start child bridge event
     this.ipcService.on(IpcIncomingEvent.START_CHILD_BRIDGE, (username) => {
+      // noinspection SuspiciousTypeOfGuard
       if (typeof username === 'string') {
         const childBridge = this.childBridges.get(username.toUpperCase())
         childBridge?.startChildBridge()

@@ -1,11 +1,11 @@
-import type { MockInstance } from 'vitest'
-
 import path, { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
 
+import { fileURLToPath } from 'node:url'
 import fs from 'fs-extra'
+
 import { HAPStorage } from 'hap-nodejs'
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { MockInstance } from 'vitest'
 
 import { Server } from './server.js'
 import { User } from './user.js'
@@ -24,6 +24,7 @@ describe('server', () => {
       username: 'CC:22:3D:E3:CE:30',
       pin: '031-45-154',
       name: 'Homebridge',
+      advertiser: 'ciao',
     },
     accessories: [],
     platforms: [],

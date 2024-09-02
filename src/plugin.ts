@@ -1,3 +1,14 @@
+import assert from 'node:assert'
+import { join } from 'node:path'
+
+import process from 'node:process'
+import { pathToFileURL } from 'node:url'
+import { satisfies } from 'semver'
+import { Logger } from './logger.js'
+
+import { PluginManager } from './pluginManager.js'
+
+import getVersion from './version.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -13,17 +24,6 @@ import type {
 } from './api.js'
 import type { PackageJSON } from './pluginManager.js'
 
-import assert from 'node:assert'
-import path from 'node:path'
-import process from 'node:process'
-import { pathToFileURL } from 'node:url'
-
-import { satisfies } from 'semver'
-
-import { Logger } from './logger.js'
-import { PluginManager } from './pluginManager.js'
-import getVersion from './version.js'
-
 const log = Logger.internal
 
 /**
@@ -33,8 +33,6 @@ export class Plugin {
   private readonly pluginName: PluginName
   private readonly scope?: string // npm package scope
   private readonly pluginPath: string // like "/usr/local/lib/node_modules/homebridge-lockitron"
-  private readonly isESM: boolean
-
   public disabled = false // mark the plugin as disabled
 
   // ------------------ package.json content ------------------
@@ -47,17 +45,14 @@ export class Plugin {
   // ----------------------------------------------------------
 
   private pluginInitializer?: PluginInitializer // default exported function from the plugin that initializes it
-
   private readonly registeredAccessories: Map<AccessoryName, AccessoryPluginConstructor> = new Map()
   private readonly registeredPlatforms: Map<PlatformName, PlatformPluginConstructor> = new Map()
-
   private readonly activeDynamicPlatforms: Map<PlatformName, DynamicPlatformPlugin[]> = new Map()
 
   constructor(name: PluginName, path: string, packageJSON: PackageJSON, scope?: string) {
     this.pluginName = name
     this.scope = scope
     this.pluginPath = path
-
     this.version = packageJSON.version || '0.0.0'
     this.main = ''
 
@@ -88,9 +83,6 @@ export class Plugin {
     if (!this.main) {
       this.main = packageJSON.main || './index.js'
     }
-
-    // check if it is an ESM module
-    this.isESM = this.main.endsWith('.mjs') || (this.main.endsWith('.js') && packageJSON.type === 'module')
 
     // very temporary fix for first wave of plugins
     if (packageJSON.peerDependencies && (!packageJSON.engines || !packageJSON.engines.homebridge)) {
@@ -158,7 +150,7 @@ export class Plugin {
     // If it's a dynamic platform plugin, ensure it's not enabled multiple times.
     if (this.activeDynamicPlatforms.has(name)) {
       throw new Error(`The dynamic platform ${name} from the plugin ${this.getPluginIdentifier()} is configured `
-        + `times in your config.json.`)
+        + 'times in your config.json.')
     }
 
     return constructor
@@ -218,12 +210,11 @@ meaning they carry an additional copy of homebridge and hap-nodejs. This not onl
 major incompatibility issues and thus is considered bad practice. Please inform the developer to update their plugin!`)
     }
 
-    const mainPath = path.join(this.pluginPath, this.main)
+    const mainPath = join(this.pluginPath, this.main)
 
     // try to import it and grab the exported initialization hook
     // pathToFileURL(specifier).href to turn a path into a "file url"
     // see https://github.com/nodejs/node/issues/31710
-
     const pluginModules = (await import(pathToFileURL(mainPath).href)).default
 
     if (typeof pluginModules === 'function') {

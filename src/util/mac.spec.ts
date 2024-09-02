@@ -1,4 +1,4 @@
-import crypto from 'node:crypto'
+import { randomBytes } from 'node:crypto'
 
 import { describe, expect, it } from 'vitest'
 
@@ -27,8 +27,8 @@ describe('mac', () => {
 
   describe('generate', () => {
     it('should generate a valid mac address', () => {
-      const seed = crypto.randomBytes(4)
-      const generated = generate(crypto.randomBytes(4))
+      const seed = randomBytes(4)
+      const generated = generate(randomBytes(4))
       try {
         expect(validMacAddress(generated)).toBeTruthy()
       } catch (error: any) {

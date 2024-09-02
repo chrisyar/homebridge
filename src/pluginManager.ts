@@ -1,3 +1,13 @@
+import { execSync } from 'node:child_process'
+
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { createRequire } from 'node:module'
+import { delimiter, join, resolve } from 'node:path'
+import process from 'node:process'
+import { InternalAPIEvent } from './api.js'
+
+import { Logger } from './logger.js'
+import { Plugin } from './plugin.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -9,18 +19,6 @@ import type {
   PluginIdentifier,
   PluginName,
 } from './api.js'
-
-import { execSync } from 'node:child_process'
-import fs from 'node:fs'
-import { createRequire } from 'node:module'
-import path from 'node:path'
-import process from 'node:process'
-
-import {
-  InternalAPIEvent,
-} from './api.js'
-import { Logger } from './logger.js'
-import { Plugin } from './plugin.js'
 
 const log = Logger.internal
 const require = createRequire(import.meta.url)
@@ -93,7 +91,7 @@ export class PluginManager {
 
     if (options) {
       if (options.customPluginPath) {
-        this.searchPaths.add(path.resolve(process.cwd(), options.customPluginPath))
+        this.searchPaths.add(resolve(process.cwd(), options.customPluginPath))
       }
 
       this.strictPluginResolution = options.strictPluginResolution || false
@@ -331,23 +329,23 @@ export class PluginManager {
     this.loadDefaultPaths()
 
     this.searchPaths.forEach((searchPath) => { // search for plugins among all known paths
-      if (!fs.existsSync(searchPath)) { // just because this path is in require.main.paths doesn't mean it necessarily exists!
+      if (!existsSync(searchPath)) { // just because this path is in require.main.paths doesn't mean it necessarily exists!
         return
       }
 
-      if (fs.existsSync(path.join(searchPath, 'package.json'))) { // does this path point inside a single plugin and not a directory containing plugins?
+      if (existsSync(join(searchPath, 'package.json'))) { // does this path point inside a single plugin and not a directory containing plugins?
         try {
           this.loadPlugin(searchPath)
         } catch (error: any) {
           log.warn(error.message)
         }
       } else { // read through each directory in this node_modules folder
-        const relativePluginPaths = fs.readdirSync(searchPath) // search for directories only
+        const relativePluginPaths = readdirSync(searchPath) // search for directories only
           .filter((relativePath) => {
             try {
-              return fs.statSync(path.resolve(searchPath, relativePath)).isDirectory()
+              return statSync(resolve(searchPath, relativePath)).isDirectory()
             } catch (error: any) {
-              log.debug(`Ignoring path ${path.resolve(searchPath, relativePath)} - ${error.message}`)
+              log.debug(`Ignoring path ${resolve(searchPath, relativePath)} - ${error.message}`)
               return false
             }
           })
@@ -360,14 +358,14 @@ export class PluginManager {
             const index = relativePluginPaths.indexOf(scopeDirectory)
             relativePluginPaths.splice(index, 1)
 
-            const absolutePath = path.join(searchPath, scopeDirectory)
-            fs.readdirSync(absolutePath)
+            const absolutePath = join(searchPath, scopeDirectory)
+            readdirSync(absolutePath)
               .filter(name => PluginManager.isQualifiedPluginIdentifier(name))
               .filter((name) => {
                 try {
-                  return fs.statSync(path.resolve(absolutePath, name)).isDirectory()
+                  return statSync(resolve(absolutePath, name)).isDirectory()
                 } catch (error: any) {
-                  log.debug(`Ignoring path ${path.resolve(absolutePath, name)} - ${error.message}`)
+                  log.debug(`Ignoring path ${resolve(absolutePath, name)} - ${error.message}`)
                   return false
                 }
               })
@@ -381,7 +379,7 @@ export class PluginManager {
           })
           .forEach((pluginIdentifier) => {
             try {
-              const absolutePath = path.resolve(searchPath, pluginIdentifier)
+              const absolutePath = resolve(searchPath, pluginIdentifier)
               this.loadPlugin(absolutePath)
             } catch (error: any) {
               log.warn(error.message)
@@ -413,15 +411,15 @@ export class PluginManager {
   }
 
   private static loadPackageJSON(pluginPath: string): PackageJSON {
-    const packageJsonPath = path.join(pluginPath, 'package.json')
+    const packageJsonPath = join(pluginPath, 'package.json')
     let packageJson: PackageJSON
 
-    if (!fs.existsSync(packageJsonPath)) {
+    if (!existsSync(packageJsonPath)) {
       throw new Error(`Plugin ${pluginPath} does not contain a package.json.`)
     }
 
     try {
-      packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) // attempt to parse package.json
+      packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' })) // attempt to parse package.json
     } catch (error: any) {
       throw new Error(`Plugin ${pluginPath} contains an invalid package.json. Error: ${error}`)
     }
@@ -461,8 +459,9 @@ export class PluginManager {
     // because of bugs in the parsable implementation of `ls` command and mostly
     // performance issues. So, we go with our best bet for now.
     if (process.env.NODE_PATH) {
-      process.env.NODE_PATH
-        .split(path.delimiter)
+      process.env
+        .NODE_PATH
+        .split(delimiter)
         .filter(path => !!path) // trim out empty values
         .forEach(path => this.searchPaths.add(path))
     } else {
@@ -477,7 +476,7 @@ export class PluginManager {
 
   private addNpmPrefixToSearchPaths(): void {
     if (process.platform === 'win32') {
-      this.searchPaths.add(path.join(process.env.APPDATA!, 'npm/node_modules'))
+      this.searchPaths.add(join(process.env.APPDATA!, 'npm/node_modules'))
     } else {
       this.searchPaths.add(execSync('/bin/echo -n "$(npm -g prefix)/lib/node_modules"', {
         env: Object.assign({

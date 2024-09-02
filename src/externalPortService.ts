@@ -1,8 +1,8 @@
 import type { MacAddress } from 'hap-nodejs'
 
-import type { ChildBridgeFork } from './childBridgeFork.js'
-
 import { Logger } from './logger.js'
+
+import type { ChildBridgeFork } from './childBridgeFork.js'
 
 export interface ExternalPortsConfiguration {
   start: number
@@ -19,7 +19,7 @@ export class ExternalPortService {
 
   constructor(
     private externalPorts?: ExternalPortsConfiguration,
-  ) { }
+  ) {}
 
   /**
    * Returns the next available port in the external port config.

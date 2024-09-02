@@ -1,4 +1,4 @@
-import path from 'node:path'
+import { basename } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
@@ -7,25 +7,25 @@ import { User } from './user.js'
 describe('user', () => { // these tests are mainly here to ensure default locations won't get bricked in the future
   describe('user.storagePath', () => {
     it('should have valid default path', () => {
-      expect(path.basename(User.storagePath())).toEqual('.homebridge')
+      expect(basename(User.storagePath())).toEqual('.homebridge')
     })
   })
 
   describe('user.cachedAccessoryPath', () => {
     it('should have valid default path', () => {
-      expect(path.basename(User.cachedAccessoryPath())).toEqual('accessories')
+      expect(basename(User.cachedAccessoryPath())).toEqual('accessories')
     })
   })
 
   describe('user.persistPath', () => {
     it('should have valid default path', () => {
-      expect(path.basename(User.persistPath())).toEqual('persist')
+      expect(basename(User.persistPath())).toEqual('persist')
     })
   })
 
   describe('user.configPath', () => {
     it('should have valid default path', () => {
-      expect(path.basename(User.configPath())).toEqual('config.json')
+      expect(basename(User.configPath())).toEqual('config.json')
     })
   })
 

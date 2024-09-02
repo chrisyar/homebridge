@@ -1,18 +1,17 @@
 /* global NodeJS */
-
-import type { HomebridgeOptions } from './server.js'
-
 import process from 'node:process'
 
 import { Command } from 'commander'
+
 import { HAPStorage } from 'hap-nodejs'
 import { satisfies } from 'semver'
-import 'source-map-support/register.js'
-
 import { Logger } from './logger.js'
 import { Server } from './server.js'
+
 import { User } from './user.js'
 import getVersion, { getRequiredNodeVersion } from './version.js'
+import type { HomebridgeOptions } from './server.js'
+import 'source-map-support/register.js'
 
 import Signals = NodeJS.Signals
 
@@ -34,7 +33,6 @@ export default function cli(): void {
   let debugModeEnabled = false
   let forceColourLogging = false
   let customStoragePath: string | undefined
-
   let shuttingDown = false
 
   const program = new Command()
