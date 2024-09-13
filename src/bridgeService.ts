@@ -60,6 +60,7 @@ export interface BridgeConfiguration {
   model?: string
   disableIpc?: boolean
   firmwareRevision?: string
+  debugModeEnabled?: boolean
   env?: {
     DEBUG?: string
     NODE_OPTIONS?: string
