@@ -1,3 +1,5 @@
+import type { SerializedPlatformAccessory } from './platformAccessory.js'
+
 import {
   Accessory,
   Categories,
@@ -5,11 +7,9 @@ import {
   Service,
   uuid,
 } from 'hap-nodejs'
-
 import { describe, expect, it, vi } from 'vitest'
-import { PlatformAccessory } from './platformAccessory.js'
 
-import type { SerializedPlatformAccessory } from './platformAccessory.js'
+import { PlatformAccessory } from './platformAccessory.js'
 
 function createAccessory(name = 'TestAccessory', category?: Categories): PlatformAccessory {
   const accessoryUUID = uuid.generate(`test.uuid.${name}`)

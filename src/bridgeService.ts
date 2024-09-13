@@ -1,17 +1,3 @@
-import {
-  Accessory,
-  AccessoryEventTypes,
-  Bridge,
-  Categories,
-  Characteristic,
-  CharacteristicEventTypes,
-  CharacteristicWarningType,
-  HAPLibraryVersion,
-  once,
-  Service,
-  uuid,
-} from 'hap-nodejs'
-
 import type {
   CharacteristicWarning,
   InterfaceName,
@@ -21,15 +7,7 @@ import type {
   PublishInfo,
   VoidCallback,
 } from 'hap-nodejs'
-import { InternalAPIEvent } from './api.js'
-import { getLogPrefix, Logger } from './logger.js'
-import { PlatformAccessory } from './platformAccessory.js'
-import { PluginManager } from './pluginManager.js'
-import { StorageService } from './storageService.js'
 
-import { generate } from './util/mac.js'
-
-import getVersion from './version.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -45,6 +23,28 @@ import type { Logging } from './logger.js'
 import type { SerializedPlatformAccessory } from './platformAccessory.js'
 import type { Plugin } from './plugin.js'
 import type { HomebridgeOptions } from './server.js'
+
+import {
+  Accessory,
+  AccessoryEventTypes,
+  Bridge,
+  Categories,
+  Characteristic,
+  CharacteristicEventTypes,
+  CharacteristicWarningType,
+  HAPLibraryVersion,
+  once,
+  Service,
+  uuid,
+} from 'hap-nodejs'
+
+import { InternalAPIEvent } from './api.js'
+import { getLogPrefix, Logger } from './logger.js'
+import { PlatformAccessory } from './platformAccessory.js'
+import { PluginManager } from './pluginManager.js'
+import { StorageService } from './storageService.js'
+import { generate } from './util/mac.js'
+import getVersion from './version.js'
 
 const log = Logger.internal
 
@@ -292,14 +292,14 @@ export class BridgeService {
             // And how would we define the threshold?
 
             log.info(`When searching for the associated plugin of the accessory '${accessory.displayName}' `
-            + `it seems like the plugin name changed from '${accessory._associatedPlugin}' to '${
-              plugin.getPluginIdentifier()}'. Plugin association is now being transformed!`)
+              + `it seems like the plugin name changed from '${accessory._associatedPlugin}' to '${
+                plugin.getPluginIdentifier()}'. Plugin association is now being transformed!`)
 
             accessory._associatedPlugin = plugin.getPluginIdentifier() // update the associated plugin to the new one
           }
         } catch (error: any) { // error is thrown if multiple plugins where found for the given platform name
           log.info(`Could not find the associated plugin for the accessory '${accessory.displayName}'. `
-          + `Tried to find the plugin by the platform name but ${error.message}`)
+            + `Tried to find the plugin by the platform name but ${error.message}`)
         }
       }
 

@@ -1,7 +1,7 @@
-import chalk from 'chalk'
-
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { MockInstance } from 'vitest'
+
+import chalk from 'chalk'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { Logger } from './logger.js'
 

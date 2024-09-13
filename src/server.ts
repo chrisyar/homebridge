@@ -1,22 +1,5 @@
-import { existsSync, readFileSync } from 'node:fs'
-
-import process from 'node:process'
-import chalk from 'chalk'
-import { AccessoryEventTypes, MDNSAdvertiser } from 'hap-nodejs'
-import qrcode from 'qrcode-terminal'
-
 import type { MacAddress } from 'hap-nodejs'
-import { HomebridgeAPI, PluginType } from './api.js'
 
-import { BridgeService } from './bridgeService.js'
-import { ChildBridgeService } from './childBridgeService.js'
-import { ExternalPortService } from './externalPortService.js'
-
-import { IpcIncomingEvent, IpcOutgoingEvent, IpcService } from './ipcService.js'
-import { Logger } from './logger.js'
-import { PluginManager } from './pluginManager.js'
-import { User } from './user.js'
-import { validMacAddress } from './util/mac.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -30,6 +13,23 @@ import type {
 import type { BridgeConfiguration, BridgeOptions, HomebridgeConfig } from './bridgeService.js'
 import type { Plugin } from './plugin.js'
 import type { PluginManagerOptions } from './pluginManager.js'
+
+import { existsSync, readFileSync } from 'node:fs'
+import process from 'node:process'
+
+import chalk from 'chalk'
+import { AccessoryEventTypes, MDNSAdvertiser } from 'hap-nodejs'
+import qrcode from 'qrcode-terminal'
+
+import { HomebridgeAPI, PluginType } from './api.js'
+import { BridgeService } from './bridgeService.js'
+import { ChildBridgeService } from './childBridgeService.js'
+import { ExternalPortService } from './externalPortService.js'
+import { IpcIncomingEvent, IpcOutgoingEvent, IpcService } from './ipcService.js'
+import { Logger } from './logger.js'
+import { PluginManager } from './pluginManager.js'
+import { User } from './user.js'
+import { validMacAddress } from './util/mac.js'
 
 const log = Logger.internal
 
@@ -285,7 +285,7 @@ export class Server {
     this.config.accessories.forEach((accessoryConfig, index) => {
       if (!accessoryConfig.accessory) {
         log.warn('Your config.json contains an illegal accessory configuration object at position %d. '
-        + 'Missing property \'accessory\'. Skipping entry...', index + 1) // we rather count from 1 for the normal people?
+          + 'Missing property \'accessory\'. Skipping entry...', index + 1) // we rather count from 1 for the normal people?
         return
       }
 
@@ -386,7 +386,7 @@ export class Server {
     this.config.platforms.forEach((platformConfig, index) => {
       if (!platformConfig.platform) {
         log.warn('Your config.json contains an illegal platform configuration object at position %d. '
-        + 'Missing property \'platform\'. Skipping entry...', index + 1) // we rather count from 1 for the normal people?
+          + 'Missing property \'platform\'. Skipping entry...', index + 1) // we rather count from 1 for the normal people?
         return
       }
 

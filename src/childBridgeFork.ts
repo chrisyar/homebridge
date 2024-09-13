@@ -1,18 +1,5 @@
-/* global NodeJS */
-import process from 'node:process'
-
-import { AccessoryEventTypes, HAPStorage } from 'hap-nodejs'
 import type { MacAddress } from 'hap-nodejs'
-import { HomebridgeAPI, PluginType } from './api.js'
-import { BridgeService } from './bridgeService.js'
 
-import { ChildProcessMessageEventType } from './childBridgeService.js'
-
-import { ChildBridgeExternalPortService } from './externalPortService.js'
-import { Logger } from './logger.js'
-
-import { PluginManager } from './pluginManager.js'
-import { User } from './user.js'
 import type { AccessoryPlugin, PlatformPlugin } from './api.js'
 import type {
   AccessoryConfig,
@@ -30,6 +17,19 @@ import type {
   ChildProcessPortRequestEventData,
 } from './childBridgeService.js'
 import type { Plugin } from './plugin.js'
+
+/* global NodeJS */
+import process from 'node:process'
+
+import { AccessoryEventTypes, HAPStorage } from 'hap-nodejs'
+import { HomebridgeAPI, PluginType } from './api.js'
+
+import { BridgeService } from './bridgeService.js'
+import { ChildProcessMessageEventType } from './childBridgeService.js'
+import { ChildBridgeExternalPortService } from './externalPortService.js'
+import { Logger } from './logger.js'
+import { PluginManager } from './pluginManager.js'
+import { User } from './user.js'
 import 'source-map-support/register.js'
 
 /**

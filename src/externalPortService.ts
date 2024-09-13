@@ -1,8 +1,8 @@
 import type { MacAddress } from 'hap-nodejs'
 
-import { Logger } from './logger.js'
-
 import type { ChildBridgeFork } from './childBridgeFork.js'
+
+import { Logger } from './logger.js'
 
 export interface ExternalPortsConfiguration {
   start: number

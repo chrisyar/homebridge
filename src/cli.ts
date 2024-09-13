@@ -1,16 +1,16 @@
+import type { HomebridgeOptions } from './server.js'
+
 /* global NodeJS */
 import process from 'node:process'
 
 import { Command } from 'commander'
-
 import { HAPStorage } from 'hap-nodejs'
 import { satisfies } from 'semver'
 import { Logger } from './logger.js'
-import { Server } from './server.js'
 
+import { Server } from './server.js'
 import { User } from './user.js'
 import getVersion, { getRequiredNodeVersion } from './version.js'
-import type { HomebridgeOptions } from './server.js'
 import 'source-map-support/register.js'
 
 import Signals = NodeJS.Signals

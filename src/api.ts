@@ -1,18 +1,18 @@
+import type { Controller, Service } from 'hap-nodejs'
+
+import type { AccessoryConfig, PlatformConfig } from './bridgeService.js'
+import type { Logging } from './logger.js'
+
 import { EventEmitter } from 'node:events'
 
 import hapNodeJs from 'hap-nodejs'
 import semver from 'semver'
 
-import type { Controller, Service } from 'hap-nodejs'
-
 import { Logger } from './logger.js'
 import { PlatformAccessory } from './platformAccessory.js'
-
 import { PluginManager } from './pluginManager.js'
 import { User } from './user.js'
 import getVersion from './version.js'
-import type { AccessoryConfig, PlatformConfig } from './bridgeService.js'
-import type { Logging } from './logger.js'
 
 const log = Logger.internal
 

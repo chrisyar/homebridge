@@ -1,17 +1,7 @@
-import { fork } from 'node:child_process'
-
-import { dirname, resolve } from 'node:path'
-
-import process from 'node:process'
-import { fileURLToPath } from 'node:url'
-import fs from 'fs-extra'
 import type { MacAddress } from 'hap-nodejs'
-import type { ChildProcess, ForkOptions } from 'node:child_process'
-import { PluginType } from './api.js'
-import { IpcOutgoingEvent } from './ipcService.js'
 
-import { Logger } from './logger.js'
-import { User } from './user.js'
+import type { ChildProcess, ForkOptions } from 'node:child_process'
+
 import type { HomebridgeAPI } from './api.js'
 import type {
   AccessoryConfig,
@@ -20,13 +10,23 @@ import type {
   HomebridgeConfig,
   PlatformConfig,
 } from './bridgeService.js'
-
 import type { ExternalPortService } from './externalPortService.js'
-
 import type { IpcService } from './ipcService.js'
 import type { Logging } from './logger.js'
 import type { Plugin } from './plugin.js'
 import type { HomebridgeOptions } from './server.js'
+
+import { fork } from 'node:child_process'
+import { dirname, resolve } from 'node:path'
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
+
+import fs from 'fs-extra'
+
+import { PluginType } from './api.js'
+import { IpcOutgoingEvent } from './ipcService.js'
+import { Logger } from './logger.js'
+import { User } from './user.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

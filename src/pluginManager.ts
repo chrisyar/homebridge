@@ -1,13 +1,3 @@
-import { execSync } from 'node:child_process'
-
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
-import { createRequire } from 'node:module'
-import { delimiter, join, resolve } from 'node:path'
-import process from 'node:process'
-import { InternalAPIEvent } from './api.js'
-
-import { Logger } from './logger.js'
-import { Plugin } from './plugin.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -19,6 +9,16 @@ import type {
   PluginIdentifier,
   PluginName,
 } from './api.js'
+
+import { execSync } from 'node:child_process'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { createRequire } from 'node:module'
+import { delimiter, join, resolve } from 'node:path'
+import process from 'node:process'
+
+import { InternalAPIEvent } from './api.js'
+import { Logger } from './logger.js'
+import { Plugin } from './plugin.js'
 
 const log = Logger.internal
 const require = createRequire(import.meta.url)

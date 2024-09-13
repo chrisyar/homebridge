@@ -1,14 +1,3 @@
-import assert from 'node:assert'
-import { join } from 'node:path'
-
-import process from 'node:process'
-import { pathToFileURL } from 'node:url'
-import { satisfies } from 'semver'
-import { Logger } from './logger.js'
-
-import { PluginManager } from './pluginManager.js'
-
-import getVersion from './version.js'
 import type {
   AccessoryIdentifier,
   AccessoryName,
@@ -23,6 +12,17 @@ import type {
   PluginName,
 } from './api.js'
 import type { PackageJSON } from './pluginManager.js'
+
+import assert from 'node:assert'
+import { join } from 'node:path'
+import process from 'node:process'
+import { pathToFileURL } from 'node:url'
+
+import { satisfies } from 'semver'
+
+import { Logger } from './logger.js'
+import { PluginManager } from './pluginManager.js'
+import getVersion from './version.js'
 
 const log = Logger.internal
 

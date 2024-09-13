@@ -1,6 +1,3 @@
-import { EventEmitter } from 'node:events'
-import { Accessory, AccessoryEventTypes, Categories } from 'hap-nodejs'
-
 import type {
   Controller,
   ControllerConstructor,
@@ -9,10 +6,13 @@ import type {
   VoidCallback,
   WithUUID,
 } from 'hap-nodejs'
-
 import type { ConstructorArgs } from 'hap-nodejs/dist/types.js'
 
 import type { PlatformName, PluginIdentifier, PluginName } from './api.js'
+
+import { EventEmitter } from 'node:events'
+
+import { Accessory, AccessoryEventTypes, Categories } from 'hap-nodejs'
 
 export type UnknownContext = Record<string, any>
 

@@ -1,9 +1,9 @@
-import { Service } from 'hap-nodejs'
-
-import { describe, expect, it, vi } from 'vitest'
-import { HomebridgeAPI, InternalAPIEvent } from './api.js'
-
 import type { AccessoryPlugin, DynamicPlatformPlugin } from './api.js'
+
+import { Service } from 'hap-nodejs'
+import { describe, expect, it, vi } from 'vitest'
+
+import { HomebridgeAPI, InternalAPIEvent } from './api.js'
 
 const api = new HomebridgeAPI()
 const emitSpy = vi.spyOn(api, 'emit')
